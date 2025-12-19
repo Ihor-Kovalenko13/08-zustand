@@ -19,10 +19,10 @@ interface createNoteProps {
   tag: string;
 }
 
+type Tags = string[];
+
 const myToken = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
-
 axios.defaults.baseURL = 'https://notehub-public.goit.study/api';
-
 axios.defaults.headers.common['Authorization'] = `Bearer ${myToken}`;
 
 export const fetchNotes = async ({
@@ -39,17 +39,21 @@ export const fetchNotes = async ({
     },
   };
 
-  const response = await axios.get<fetchNotesResponse>('/notes', options);
-  return response.data;
+  const response = await axios
+    .get<fetchNotesResponse>('/notes', options)
+    .then(response => response.data);
+  return response;
 };
 
 export async function fetchNoteById(id: Note['id']): Promise<Note> {
-  const response = await axios.get<Note>(`/notes/${id}`);
-  return response.data;
+  const response = await axios
+    .get<Note>(`/notes/${id}`)
+    .then(response => response.data);
+  return response;
 }
 
 export const createNote = async (data: createNoteProps) => {
-  const response = await axios.post<Note>('/notes', data);
+  const response = await axios.post<Note>('/notes', data, {});
   return response.data;
 };
 

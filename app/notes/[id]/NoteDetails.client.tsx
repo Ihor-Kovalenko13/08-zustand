@@ -7,6 +7,8 @@ import NoteDetails from '@/components/NoteDetails/NoteDetails';
 
 export default function NoteDetailsClient() {
   const { id } = useParams<{ id: string }>();
+  console.log('id:', id);
+
   const {
     data: note,
     isLoading,
